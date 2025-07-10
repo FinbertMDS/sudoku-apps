@@ -1,5 +1,6 @@
 // controllers/level.controller.ts
 
+import {ClassicInitGame, KillerInitGame} from '@/types';
 import {FastifyReply, FastifyRequest} from 'fastify';
 import {generateBoard} from '../services/board.service';
 
@@ -20,8 +21,14 @@ export async function getGeneratedBoard(
   }
 
   try {
-    const board = generateBoard(level, mode);
-    return reply.send(board);
+    const board = generateBoard(level, mode) as
+      | ClassicInitGame
+      | KillerInitGame;
+    const result = {
+      ...board,
+      mode: mode,
+    };
+    return reply.send(result);
   } catch (err) {
     return reply.status(500).send({error: 'Failed to generate board'});
   }

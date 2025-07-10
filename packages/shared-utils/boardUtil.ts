@@ -2,6 +2,7 @@
 
 import {CageInfo, CellValue, Level} from '@sudoku/shared-types';
 import {BOARD_SIZE} from '@sudoku/shared-utils';
+import {randomBetween} from '@sudoku/shared-utils/boardUtilCommon';
 import {overrideNumberOfCellsToRemove} from 'killer-sudoku-generator';
 import {Difficulty} from 'sudoku-gen/dist/types/difficulty.type';
 
@@ -180,20 +181,6 @@ export function getFontSizesFromCellSize() {
 
 // ---------------- Killer Sudoku ----------------
 
-export function sortAreasCells(areas: CageInfo[]): CageInfo[] {
-  return areas.map((cage) => ({
-    ...cage,
-    cells: [...cage.cells].sort((a, b) => {
-      if (a[0] !== b[0]) {
-        // Ưu tiên hàng (row) trước
-        return a[0] - b[0];
-      }
-      // Nếu cùng hàng, ưu tiên cột (col)
-      return a[1] - b[1];
-    }),
-  }));
-}
-
 export const getAdjacentCellsInSameCage = (
   row: number,
   col: number,
@@ -249,10 +236,6 @@ export const getAdjacentCellsInSameCage = (
     bottomleft,
     bottomright,
   };
-};
-
-const randomBetween = (min: number, max: number) => {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 export const setRandomCellsToRemoveForLevel = (

@@ -1,19 +1,25 @@
 // boardUtilsBE.ts
 
+import {Level} from '@sudoku/shared-types';
 import {
-  CELLS_TO_REMOVE_RANGE,
-  setRandomCellsToRemoveForLevel,
+  randomBetween,
   sortAreasCells,
-  stringToGrid,
-} from '@sudoku/shared-utils';
-import {generateKillerSudoku} from 'killer-sudoku-generator';
+} from '@sudoku/shared-utils/boardUtilCommon';
+import {
+  generateKillerSudoku,
+  overrideNumberOfCellsToRemove,
+} from 'killer-sudoku-generator';
 import {getSudoku} from 'sudoku-gen';
+import {Difficulty} from 'sudoku-gen/dist/types/difficulty.type';
 import {v4 as uuidv4} from 'uuid';
 
-export const generateBoardCommon = (mode: string, level: string) => {
-  console.log('generateBoardCommon', mode, level);
+export const generateBoardCommon = (
+  mode: string,
+  level: string,
+  cellsToRemoveRange?: Record<Level, number[]>,
+) => {
   if (mode === 'killer') {
-    return generateKillerBoard(level);
+    return generateKillerBoard(level, cellsToRemoveRange);
   }
   return generateClassicBoard(level);
 };
@@ -35,18 +41,27 @@ export const generateClassicBoard = (level: string, id?: string) => {
   return initGame;
 };
 
-export const generateKillerBoard = (level: string, id?: string) => {
+export const generateKillerBoard = (
+  level: string,
+  cellsToRemoveRange?: Record<Level, number[]>,
+  id?: string,
+) => {
   let _id = id;
   if (!_id) {
     _id = uuidv4().toString();
   }
-  setRandomCellsToRemoveForLevel(level, CELLS_TO_REMOVE_RANGE);
-  const sudoku = generateKillerSudoku(level as any);
+
+  if (cellsToRemoveRange) {
+    const [min, max] = cellsToRemoveRange[level];
+    const randomNumber = randomBetween(min, max);
+    overrideNumberOfCellsToRemove(level as Difficulty, randomNumber);
+  }
+  const sudoku = generateKillerSudoku(level as Difficulty);
 
   const initGame = {
     id: _id,
-    initialBoard: stringToGrid(sudoku.puzzle),
-    solvedBoard: stringToGrid(sudoku.solution),
+    initialBoard: sudoku.puzzle,
+    solvedBoard: sudoku.solution,
     cages: sortAreasCells(sudoku.areas),
     savedLevel: level,
   };

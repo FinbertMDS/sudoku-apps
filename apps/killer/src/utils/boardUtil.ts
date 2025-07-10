@@ -4,9 +4,9 @@ import {KillerInitGame, KillerLevel} from '@/types';
 import {
   CELLS_TO_REMOVE_RANGE,
   setRandomCellsToRemoveForLevel,
-  sortAreasCells,
   stringToGrid,
 } from '@sudoku/shared-utils';
+import {sortAreasCells} from '@sudoku/shared-utils/boardUtilCommon';
 import {generateKillerSudoku} from 'killer-sudoku-generator';
 import {Difficulty} from 'sudoku-gen/dist/types/difficulty.type';
 
