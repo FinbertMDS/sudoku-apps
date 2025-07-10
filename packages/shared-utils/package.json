@@ -8,6 +8,8 @@
     "react-native-uuid": "*",
     "date-fns": "*",
     "expo-constants": "*",
-    "killer-sudoku-generator": "*"
+    "uuid": "*",
+    "killer-sudoku-generator": "*",
+    "sudoku-gen": "*"
   }
 }

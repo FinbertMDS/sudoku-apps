@@ -24,7 +24,7 @@ export const playerColors = {
     light: '#8b5cf6', // purple-400
     dark: '#7c3aed', // purple-500
   },
-} as const;
+};
 
 export type PlayerColorKey = keyof typeof playerColors;
 

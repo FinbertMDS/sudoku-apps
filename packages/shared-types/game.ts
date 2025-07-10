@@ -1,5 +1,7 @@
 // game.ts
 
+export type AppMode = 'killer' | 'classic';
+
 export type Cell = {
   row: number;
   col: number;

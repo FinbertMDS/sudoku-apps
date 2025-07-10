@@ -4,7 +4,8 @@
   "license": "MIT",
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/*",
+    "backend"
   ],
   "scripts": {
     "clean-pj": "rm -rf node_modules yarn.lock && rm -rf apps/classic/node_modules apps/classic/.expo && rm -rf apps/killer/node_modules",
@@ -14,6 +15,7 @@
     "dev:classic": "yarn workspace classic start",
     "dev:classic:ios": "yarn workspace classic ios",
     "dev:classic:android": "yarn workspace classic android",
+    "dev:backend": "yarn workspace backend dev",
     "prod:all": "yarn workspace classic prebuild && yarn workspace killer prebuild",
     "prod:all:normal": "yarn workspace classic prebuild:normal && yarn workspace killer prebuild:normal",
     "prod:all:force": "yarn workspace classic prebuild:force && yarn workspace killer prebuild:force",

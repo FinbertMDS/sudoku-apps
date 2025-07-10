@@ -1,0 +1,27 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon",
+    "build": "tsc",
+    "start": "node build/server.js"
+  },
+  "dependencies": {
+    "@fastify/cors": "^11.0.1",
+    "@fastify/env": "^5.0.2",
+    "dotenv": "^17.0.1",
+    "fastify": "^5.4.0",
+    "killer-sudoku-generator": "^1.1.2",
+    "sudoku-gen": "^1.0.2",
+    "uuid": "8.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.12",
+    "@types/uuid": "^10.0.0",
+    "nodemon": "^3.1.10",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.8.3"
+  }
+}
